@@ -4,6 +4,7 @@ import { createApi } from "unsplash-js";
 import { data } from "./data.js";
 import { beaches } from "./data.js";
 import {dog} from "./data"
+import axios from "axios";
 
 const App = () => {
   const [data, setPhotosResponse] = useState(null);
@@ -19,10 +20,15 @@ const App = () => {
   });
 
   useEffect(() => {
-    api.search
-      .getPhotos({ query: category, orientation: "landscape" })
+    //api.search
+      axios.get("https://api.unsplash.com/search/photos",  
+    { query: category, orientation: "landscape" },
+    {
+      Authorization: 'Client-ID Nn45REE5MD-xqcaTBcemQI1C8nDggCKxPZTrpOB53fk'
+  }
+    )
       .then((result) => {
-        //setPhotosResponse(result);
+        setPhotosResponse(result);
         setImgArray(result.response.results);
         setImgSrc(result.response.results[0].urls.regular);
         console.log(imgArray + "  img");
@@ -33,7 +39,7 @@ const App = () => {
   }, [category]);
 
   const Body = () => {
-    if (data === null) {
+    if (data == null) {
       return <div>Loading...</div>;
     } else if (data.errors) {
       return (
@@ -78,7 +84,7 @@ const App = () => {
             <li
               onClick={() => {
                 setcategory("dog");
-                 setImgSrc("data");
+                 //setImgSrc("");
               }}
             >
               Dog
@@ -86,7 +92,7 @@ const App = () => {
             <li
               onClick={() => {
                 setcategory("Phones");
-                // setImgSrc("phones");
+                // setImgSrc("");
               }}
             >
               Phones
@@ -94,7 +100,7 @@ const App = () => {
             <li
               onClick={() => {
                 setcategory("Beaches");
-                 //setImgSrc("beaches");
+                 //setImgSrc("");
               }}
             >
               Beaches
@@ -102,7 +108,7 @@ const App = () => {
             <li
               onClick={() => {
                 setcategory("Houses");
-                 //setImgSrc("houses");
+                 //setImgSrc("");
               }}
             >
               Houses
@@ -112,7 +118,7 @@ const App = () => {
         <div className="bottom">
           <h3>Files</h3>
           <ul>
-            {data !== null
+            {data != null
               ? data.response.results.map((data) => (
                   <li
                     {...num++}
