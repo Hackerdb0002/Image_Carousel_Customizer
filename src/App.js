@@ -1,9 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import "./App.css";
 import { createApi } from "unsplash-js";
-import { data } from "./data.js";
-import { beaches } from "./data.js";
-import {dog} from "./data"
+
 import axios from "axios";
 
 const App = () => {
@@ -16,17 +14,14 @@ const App = () => {
   
 
   const api = createApi({
-    accessKey: "",
+    accessKey: "6vcqy-BDkPw3WHdHw2lPfDD01G2ZV2rGzoCSdvJ9RMA",
   });
-
+   //6vcqy-BDkPw3WHdHw2lPfDD01G2ZV2rGzoCSdvJ9RMA
   useEffect(() => {
-    //api.search
-      axios.get("https://api.unsplash.com/search/photos",  
-    { query: category, orientation: "landscape" },
-    {
-      Authorization: 'Client-ID Nn45REE5MD-xqcaTBcemQI1C8nDggCKxPZTrpOB53fk'
-  }
-    )
+    
+    
+    api.search
+    .getPhotos({ query: category, orientation: "landscape" })
       .then((result) => {
         setPhotosResponse(result);
         setImgArray(result.response.results);
