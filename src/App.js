@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import "./App.css";
 import { createApi } from "unsplash-js";
-
+import { Draggable, Droppable } from 'react-drag-and-drop';
 import axios from "axios";
 
 const App = () => {
@@ -110,12 +110,16 @@ const App = () => {
             </li>
           </ul>
         </div>
+        
         <div className="bottom">
           <h3>Files</h3>
           <ul>
             {data != null
               ? data.response.results.map((data) => (
-                  <li
+                <Droppable 
+                //onDrop={this.onDrop.bind(this)}
+                >
+                <li
                     {...num++}
                     onClick={() => {
                       setImgSrc(data.urls.regular);
@@ -123,10 +127,13 @@ const App = () => {
                   >
                     Landscape-{num}
                   </li>
+                  </Droppable>
                 ))
               : "Loading.."}
           </ul>
         </div>
+        
+        
       </div>
       <div className="mainContent">
         <div className="leftButton">
@@ -141,6 +148,7 @@ const App = () => {
             Left
           </button>
         </div>
+        <Draggable>
         <div className="imageView">
           {imgSrc !== "" ? (
             <img src={imgSrc} alt="" width="300" />
@@ -148,6 +156,7 @@ const App = () => {
             <p>Please click on the below image to preview here....</p>
           )}
         </div>
+        </Draggable>
         <div className="rightButton">
           <button
             onClick={() => {
